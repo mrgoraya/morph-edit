@@ -29,7 +29,16 @@ It does not cut your video, make thumbnails or write the title. You drop the cli
 
 ## Install and use with Claude Code
 
-**1. Install the tools once** (macOS: `brew install node ffmpeg python`). You need Node 18+, Python 3 and ffmpeg.
+**1. Install the tools.** You need Node 18+, Python 3 and ffmpeg (with the `prores_ks` encoder for transparent clips).
+- **Mac:** `brew install node ffmpeg python`
+- **Linux / WSL (Ubuntu):** `sudo apt install nodejs npm ffmpeg python3 python3-venv python3-pip`
+- **Windows:** use WSL. Run `wsl --install` in PowerShell, restart, open Ubuntu, and follow the Linux line inside it. Native Windows (PowerShell) is untested.
+
+*Or let Claude check and install for you.* Open Claude Code (on Mac, or inside WSL) and paste this:
+
+> Install https://github.com/mrgoraya/morph-edit as a Claude Code skill. First check my operating system and which of Node 18+, Python 3 and ffmpeg (with the `prores_ks` encoder) are already installed. Tell me what's missing, then install only those, using Homebrew on macOS or apt in WSL/Linux, and ask me before each install. Then run the skill's setup script and tell me when it's ready.
+
+Claude can't type your admin password. If an install asks for it, enter it yourself.
 
 **2. Open a terminal in the folder where your video is, and start Claude Code:**
 
