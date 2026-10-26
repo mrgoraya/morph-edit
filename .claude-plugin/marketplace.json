@@ -1,0 +1,11 @@
+{
+  "name": "morph-edit",
+  "owner": { "name": "Mehran Rasheed" },
+  "plugins": [
+    {
+      "name": "morph-edit",
+      "source": "./",
+      "description": "Motion-graphic B-roll timed to your words: one shape that morphs and never cuts."
+    }
+  ]
+}

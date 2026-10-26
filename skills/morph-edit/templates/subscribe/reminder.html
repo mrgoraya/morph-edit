@@ -1,0 +1,51 @@
+<!-- Template. Replace __CHANNEL__ (channel name), __HANDLE__ (@handle) and __AVATAR__ (a data: URI or path of the creator's logo/photo; for no image, swap the <img> for a letter). Re-time the constants at the top of <script> (IN, click times, T) to the creator's own words. -->
+<title>Subscribe reminder</title>
+<style>
+html.alpha #shape{box-shadow:0 0 0 2px rgba(255,255,255,.10) !important}
+.tl{position:absolute;left:0;top:0}
+.av{position:absolute;width:96px;height:96px;border-radius:50%;background:#EE7836;border:1px solid #EE7836;box-sizing:border-box;overflow:hidden}
+.cb{position:absolute;width:72px;height:72px;border-radius:50%;background:#262624;display:flex;align-items:center;justify-content:center}
+#sub{position:absolute;height:76px;border-radius:38px;display:flex;align-items:center;justify-content:center;gap:12px;font-size:28px;font-weight:700;color:#fff;white-space:nowrap}
+</style>
+<div data-slot="shape">
+  <div class="L" id="Lp"><div class="row" style="transform:translate(-50%,-50%);gap:22px">
+    <div class="av" style="position:relative"><img src="__AVATAR__" style="width:100%;height:100%;border-radius:50%;display:block;object-fit:cover"></div>
+    <div><div style="font-size:34px;font-weight:700;letter-spacing:-.02em;color:#fff">__CHANNEL__</div><div class="mono" style="font-size:22px;color:#9A9791">__HANDLE__</div></div>
+  </div></div>
+  <div class="L" id="Lc"><div class="tl">
+    <div class="av" style="left:27px;top:27px"><img src="__AVATAR__" style="width:100%;height:100%;border-radius:50%;display:block;object-fit:cover"></div>
+    <div style="position:absolute;left:142px;top:36px;font-size:34px;font-weight:700;letter-spacing:-.02em;color:#fff;white-space:nowrap">__CHANNEL__</div>
+    <div class="mono" style="position:absolute;left:144px;top:84px;font-size:22px;color:#9A9791;white-space:nowrap">__HANDLE__</div>
+    <div id="sub" style="left:520px;top:37px;width:250px"><span id="subI"></span><span id="subT">Subscribe</span></div>
+    <div class="cb" id="bell" style="left:794px;top:39px"></div>
+  </div></div>
+</div><!--/shape-->
+<script>
+const IN=20.0, $=id=>document.getElementById(id);
+M.IC.bell=['M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9','M10.3 21a1.94 1.94 0 0 0 3.4 0'];
+const CW=900, L0=-450, wx=x=>L0+x;            // card left edge fixed at world -450
+const SUBC=wx(520+125), BELLC=wx(794+36), CS=2.1, CB=2.6, T=5.2;
+const KX=[[0,520,140],[1.3,520,140],[1.9,SUBC,10],[2.2,SUBC,10],[2.45,BELLC,8],[2.75,BELLC,8],[3.4,560,150],[T,560,150]];
+const subOn=M.track(0,[[CS,1,[18,.8]]]);
+M.scene({
+  W:3840,H:2160,bg:null,T:T,intro:0.04,center:[1040,1860],
+  SH:{pill:{w:560,h:140,r:70,bg:'#111110',cam:2}, card:{w:CW,h:150,r:40,bg:'#111110',cam:2}},
+  start:'pill', SEQ:[[0.9,'card']],
+  layers:[
+    {el:'Lp',tin:0.04,tout:0.9,o:{din:0.03}},
+    {el:'Lc',tin:0.9,tout:null,anchor:'t',update:(t,g)=>{
+      document.querySelector('#Lc .tl').style.left=(-g.w/2)+'px';
+      const k=M.clamp(subOn(t)), s=$('sub').style; s.opacity=M.clamp((t-1.05)/0.2);
+      s.background=`rgb(${Math.round(230-188*k)},${Math.round(30+12*k)},40)`;
+      s.transform=`scale(${(1-0.05*Math.sin(Math.PI*M.clamp((t-CS+0.06)/0.16))).toFixed(4)})`;
+      M.setText($('subT'),k>0.5?'Subscribed':'Subscribe'); $('subI').innerHTML=k>0.5?M.icon('check',26,'#fff',3):'';
+      const bo=t>=CB, bp=M.S(t-CB,16,0.6), be=$('bell'); be.style.opacity=M.clamp((t-1.15)/0.2);
+      const rg=bo?Math.sin((t-CB)*40)*Math.exp(-(t-CB)/0.45)*26:0;
+      be.style.background=bo?'#FF5A1F':'#262624'; be.style.transform=`scale(${bo?(0.86+0.14*bp).toFixed(4):1})`;
+      be.innerHTML=`<span style="display:inline-block;transform:rotate(${rg.toFixed(2)}deg);transform-origin:50% 12%">${M.icon('bell',32,bo?'#fff':'#D8D5CF',2.2)}</span>`;
+    }},
+  ],
+  cursor:{size:88,clicks:[CS,CB],keys:KX},
+  geom:(t,g)=>{g.cx=L0+g.w/2; const e=M.clamp((t-(T-0.32))/0.26); g.op*=1-e; g.sc*=1-0.18*M.eio(e); return g;},
+});
+</script>

@@ -1,0 +1,8 @@
+{
+  "name": "morph-edit",
+  "description": "Turn a talking-head video into motion-graphic B-roll timed to the speaker's words, in a one-shape-that-never-cuts style.",
+  "version": "0.1.0",
+  "author": { "name": "Mehran Rasheed" },
+  "license": "MIT",
+  "repository": "https://github.com/mrgoraya/morph-edit"
+}

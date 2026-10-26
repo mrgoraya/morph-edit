@@ -1,0 +1,70 @@
+<!-- Template. Replace __CHANNEL__ (channel name), __HANDLE__ (@handle) and __AVATAR__ (a data: URI or path of the creator's logo/photo; for no image, swap the <img> for a letter). Re-time the constants at the top of <script> (IN, click times, T) to the creator's own words. -->
+<title>Subscribe end card</title>
+<style>
+html.alpha #shape{box-shadow:0 0 0 2px rgba(255,255,255,.10) !important}
+.tl{position:absolute;left:0;top:0}
+.av{position:absolute;width:96px;height:96px;border-radius:50%;background:#EE7836;border:1px solid #EE7836;box-sizing:border-box;overflow:hidden}
+.nm{position:absolute;font-size:34px;font-weight:700;letter-spacing:-.02em;color:#fff;white-space:nowrap}
+.hn{position:absolute;font-family:'Geist Mono',monospace;font-size:22px;color:#9A9791;white-space:nowrap}
+.cb{position:absolute;width:72px;height:72px;border-radius:50%;background:#262624;display:flex;align-items:center;justify-content:center}
+.lb{position:absolute;font-size:17px;font-weight:600;color:#8A8782;width:100px;text-align:center;white-space:nowrap}
+#sub{position:absolute;height:76px;border-radius:38px;display:flex;align-items:center;justify-content:center;gap:12px;font-size:28px;font-weight:700;color:#fff;white-space:nowrap}
+</style>
+<div data-slot="shape">
+  <div class="L" id="Lp"><div class="row" style="transform:translate(-50%,-50%);gap:22px">
+    <div class="av" style="position:relative"><img src="__AVATAR__" style="width:100%;height:100%;border-radius:50%;display:block;object-fit:cover"></div>
+    <div><div style="font-size:34px;font-weight:700;letter-spacing:-.02em;color:#fff">__CHANNEL__</div><div class="mono" style="font-size:22px;color:#9A9791">__HANDLE__</div></div>
+  </div></div>
+  <div class="L" id="Lc"><div class="tl">
+    <div class="av" style="left:28px;top:32px"><img src="__AVATAR__" style="width:100%;height:100%;border-radius:50%;display:block;object-fit:cover"></div>
+    <div class="nm" style="left:146px;top:42px">__CHANNEL__</div>
+    <div class="hn" style="left:148px;top:90px">__HANDLE__</div>
+    <div class="cb" id="b0" style="left:604px;top:28px"></div><div class="lb" style="left:590px;top:108px">Share</div>
+    <div class="cb" id="b1" style="left:694px;top:28px"></div><div class="lb" style="left:680px;top:108px">Comment</div>
+    <div class="cb" id="b2" style="left:784px;top:28px"></div><div class="lb" style="left:770px;top:108px">Like</div>
+    <div id="sub" style="left:890px;top:26px;width:262px"><span id="subI"></span><span id="subT">Subscribe</span></div>
+    <div class="cb" id="bell" style="left:1170px;top:28px"></div><div class="lb" id="bl" style="left:1156px;top:108px">Bell</div>
+  </div></div>
+</div><!--/shape-->
+<script>
+const IN=685.0, at=x=>x-IN, $=id=>document.getElementById(id);
+Object.assign(M.IC,{
+ thumb:['M7 10v12','M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z'],
+ msg:['M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z'],
+ share:['M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8','m16 6-4-4-4 4','M12 2v13'],
+ bell:['M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9','M10.3 21a1.94 1.94 0 0 0 3.4 0'],
+});
+const IC=['share','msg','thumb'];
+// words: share 689.96, subscribe 691.60 (+ bell right after), like 692.46, comment 693.28 (video ends 696.23)
+const CLK={0:at(689.96), sub:at(691.60), bell:at(692.02), 2:at(692.46), 1:at(693.28)};
+const BX=[640,730,820], SUBX=1021, BELLX=1206, CW=1270;           // card-left coords of button centres
+const wx=x=>x-CW/2;                                     // -> world x (card centred on 0)
+const KX=[[0,700,150],[at(689.3),700,150],[at(689.85),wx(BX[0]),8],[at(690.2),wx(BX[0]),8],[at(691.45),wx(SUBX),10],[at(691.72),wx(SUBX),10],[at(691.94),wx(BELLX),8],[at(692.12),wx(BELLX),8],[at(692.36),wx(BX[2]),8],[at(692.6),wx(BX[2]),8],[at(693.12),wx(BX[1]),8],[at(693.45),wx(BX[1]),8],[at(694.4),700,150],[11.3,700,150]];
+const subOn=M.track(0,[[CLK.sub,1,[18,.8]]]);
+M.scene({
+  W:3840,H:2160,bg:null,T:11.23,intro:0.04,center:[1920,1830],
+  SH:{pill:{w:560,h:140,r:70,bg:'#111110',cam:2}, card:{w:CW,h:160,r:40,bg:'#111110',cam:2}},
+  start:'pill', SEQ:[[at(686.2),'card']],
+  layers:[
+    {el:'Lp',tin:0.04,tout:at(686.2),o:{din:0.03}},
+    {el:'Lc',tin:at(686.2),tout:null,anchor:'t',update:(t,g)=>{
+      document.querySelector('#Lc .tl').style.left=(-g.w/2)+'px';
+      for(let i=0;i<3;i++){const c=CLK[i], on=t>=c, p=M.S(t-c,16,0.6), e=$('b'+i);
+        e.style.background=on?'#FF5A1F':'#262624'; e.style.transform=`scale(${on?(0.86+0.14*p).toFixed(4):1})`;
+        e.style.opacity=M.clamp((t-at(686.4)-0.08*i)/0.2);
+        e.innerHTML=M.icon(IC[i],32,on?'#fff':'#D8D5CF',2.2);}
+      const k=M.clamp(subOn(t)), s=$('sub').style; s.opacity=M.clamp((t-at(686.7))/0.2);
+      s.background=`rgb(${Math.round(230-188*k)},${Math.round(30+12*k)},${Math.round(40-0*k)})`;
+      s.transform=`scale(${(1-0.05*Math.sin(Math.PI*M.clamp((t-CLK.sub+0.06)/0.16))).toFixed(4)})`;
+      M.setText($('subT'),k>0.5?'Subscribed':'Subscribe');
+      $('subI').innerHTML=k>0.5?M.icon('check',26,'#fff',3):'';
+      const bo=t>=CLK.bell, bp=M.S(t-CLK.bell,16,0.6), be=$('bell'); be.style.opacity=M.clamp((t-at(686.8))/0.2); $('bl').style.opacity=be.style.opacity;
+      const rg=bo?Math.sin((t-CLK.bell)*40)*Math.exp(-(t-CLK.bell)/0.45)*26:0;
+      be.style.background=bo?'#FF5A1F':'#262624'; be.style.transform=`scale(${bo?(0.86+0.14*bp).toFixed(4):1})`;
+      be.innerHTML=`<span style="display:inline-block;transform:rotate(${rg.toFixed(2)}deg);transform-origin:50% 12%">${M.icon('bell',32,bo?'#fff':'#D8D5CF',2.2)}</span>`;
+    }},
+  ],
+  cursor:{size:88,clicks:[CLK[0],CLK.sub,CLK.bell,CLK[2],CLK[1]],keys:KX},
+  geom:(t,g)=>{const e=M.clamp((t-(11.23-0.3))/0.26); g.op*=1-e; return g;},
+});
+</script>
