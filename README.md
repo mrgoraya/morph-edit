@@ -8,6 +8,16 @@ You get:
 - `TIMING.md` (where each clip goes and what it covers)
 - an HTML page with every clip, a step-through viewer, and a before/after compare page
 
+## About
+
+Free skill for Claude Code that turns a talking-head video into motion-graphic B-roll timed to your words, with optional sound effects, subscribe cards and captions. It runs on your own computer with no API costs, and you finish the edit in your own video editor.
+
+## Skills
+
+| Skill | What it does |
+|---|---|
+| `morph-edit` | Give it a video and it makes motion-graphic B-roll timed to your words, plus optional UI sound effects, subscribe cards and English + original-language captions. |
+
 ## What it does (and doesn't)
 
 - **Motion-graphic B-roll clips** timed to your words, plus a preview with the clips cut in.
@@ -59,7 +69,7 @@ Tips: if you already have a transcript (`.srt`), put it in the folder and say so
 
 ## Credits
 
-morph-edit is built on **[motion-graphics](https://github.com/Barty-Bart/motion-graphics)** by Bart (Barty-Bart), MIT licensed. His `motion-broll` skill is the engine this project grew from: the clip engine, renderer, example clips and style. Please check out his repo and his other free skills. This project is not affiliated with or endorsed by him.
+morph-edit is built on **[motion-graphics](https://github.com/Barty-Bart/motion-graphics)** by Bart Slodyczka ([@Barty-Bart](https://github.com/Barty-Bart)), MIT licensed. His `motion-broll` skill is the engine this project grew from: the clip engine, renderer, example clips and style. Please check out his repo and his other free skills. This project is not affiliated with or endorsed by him.
 
 Additions in this repo by Mehran Rasheed: local Whisper transcription (`transcribe.py`, works with mixed-language speech), UI sound effects synthesised locally (`sfx.py`, no samples), subscribe card templates, caption tools (`scripts/captions/`), the one-page clip gallery (`make_gallery.py`), a preview height option in `composite.py`, previews of transparent panels over their own footage, 4K stills, and setup fixes.
 
@@ -69,4 +79,4 @@ Also included:
 
 ## License
 
-MIT. See `LICENSE`. Bart's copyright notice is kept as the license requires.
+MIT. See `LICENSE`. Bart Slodyczka's copyright notice is kept as the license requires.
