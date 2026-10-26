@@ -29,24 +29,38 @@ It does not cut your video, make thumbnails or write the title. You drop the cli
 
 ## Install and use with Claude Code
 
-**1. Install the tools.** You need Node 18+, Python 3 and ffmpeg (with the `prores_ks` encoder for transparent clips).
-- **Mac:** `brew install node ffmpeg python`
-- **Linux / WSL (Ubuntu):** `sudo apt install nodejs npm ffmpeg python3 python3-venv python3-pip`
-- **Windows:** use WSL. Run `wsl --install` in PowerShell, restart, open Ubuntu, and follow the Linux line inside it. Native Windows (PowerShell) is untested.
+You need [Claude Code](https://claude.com/claude-code) installed first. Then follow these steps in order.
 
-*Or let Claude check and install for you.* Open Claude Code (on Mac, or inside WSL) and paste this:
+### Step 1: Open Claude Code in your video folder
 
-> Install https://github.com/mrgoraya/morph-edit as a Claude Code skill. First check my operating system and which of Node 18+, Python 3 and ffmpeg (with the `prores_ks` encoder) are already installed. Tell me what's missing, then install only those, using Homebrew on macOS or apt in WSL/Linux, and ask me before each install. Then run the skill's setup script and tell me when it's ready.
-
-Claude can't type your admin password. If an install asks for it, enter it yourself.
-
-**2. Open a terminal in the folder where your video is, and start Claude Code:**
+Open a terminal (on Windows, open **Ubuntu** after installing WSL: run `wsl --install` in PowerShell, restart, then open Ubuntu), go to the folder with your video, and start Claude Code:
 
 ```bash
+cd path/to/your/video-folder
 claude
 ```
 
-**3. Install the plugin.** Type these two commands in Claude Code:
+Everything below happens inside Claude Code.
+
+### Step 2: Install the tools it needs
+
+morph-edit needs **Node 18+**, **Python 3** and **ffmpeg** (with the `prores_ks` encoder). Pick one:
+
+**Easiest: let Claude do it.** Paste this into Claude Code:
+
+> Check my operating system and which of Node 18+, Python 3 and ffmpeg (with the `prores_ks` encoder) are already installed. Tell me what's missing, then install only those, using Homebrew on macOS or apt in Ubuntu/WSL, and ask me before each install.
+
+Claude can't type your admin password. If an install asks for it, enter it yourself.
+
+**Or install them yourself:**
+- Mac: `brew install node ffmpeg python`
+- Ubuntu / WSL: `sudo apt install nodejs npm ffmpeg python3 python3-venv python3-pip`
+
+Native Windows (PowerShell) is untested, so use WSL.
+
+### Step 3: Install morph-edit
+
+Type these two commands in Claude Code:
 
 ```
 /plugin marketplace add mrgoraya/morph-edit
@@ -55,17 +69,23 @@ claude
 
 Restart Claude Code if it asks you to.
 
-*No plugin?* Paste this prompt instead and Claude does it for you:
+*No plugin?* Paste this instead:
 
 > Download https://github.com/mrgoraya/morph-edit and copy its `skills/morph-edit` folder into this project's `.claude/skills/` folder. Then tell me when it is ready.
 
-**4. Paste this prompt to make B-roll** (change the file name):
+### Step 4: Make your B-roll
+
+Paste this (change the file name):
 
 > Use the morph-edit skill on `my-video.mp4`. Set it up if this is the first run, transcribe the video, and show me the transcript so I can fix any names. Then give me the clip plan table and wait for my approval before building anything.
 
-**5. Answer Claude's few questions** (how many clips, your brand colours or logo) and approve the clip plan table.
+The first run also installs Playwright, Chromium and Whisper. That takes a few minutes.
 
-**6. Get the results** in the `motion/out/` folder:
+### Step 5: Answer a few questions and approve the plan
+
+Claude asks how many clips you want and for your brand colours or logo. It shows the clip plan table, and nothing is built until you approve it.
+
+### Step 6: Get your results in the `motion/out/` folder:
 - the clips (`.mp4`, plus transparent `.mov` panels) and `sfx/` (the sound effects as WAV files)
 - `captions/` (if you asked for captions)
 - `TIMING.md`: where each clip goes and what it covers
