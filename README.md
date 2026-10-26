@@ -85,7 +85,9 @@ The first run also installs Playwright, Chromium and Whisper. That takes a few m
 
 Claude asks how many clips you want and for your brand colours or logo. It shows the clip plan table, and nothing is built until you approve it.
 
-### Step 6: Get your results in the `motion/out/` folder:
+### Step 6: Get your results
+
+Everything is in the `motion/out/` folder:
 - the clips (`.mp4`, plus transparent `.mov` panels) and `sfx/` (the sound effects as WAV files)
 - `captions/` (if you asked for captions)
 - `TIMING.md`: where each clip goes and what it covers
